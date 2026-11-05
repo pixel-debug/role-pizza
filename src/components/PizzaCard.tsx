@@ -14,8 +14,8 @@ export function PizzaCard({ pizza, quantity, onChange, disabled }: PizzaCardProp
   const [expanded, setExpanded] = useState(false);
 
   return <article className={`pizza-card ${quantity ? 'selected' : ''}`}>
-    <div className="pizza-photo"><img src={pizza.image} alt={pizza.category === 'Doces' ? 'Chocolate ilustrativo; não é foto da pizza' : 'Pizza ilustrativa; não é foto do sabor'} loading="lazy" onError={event => { event.currentTarget.style.display = 'none'; }} />
-      <span className="photo-credit">Imagem ilustrativa</span>
+    <div className="pizza-photo"><img src={pizza.image} alt={pizza.imageIsIllustrative ? `Imagem ilustrativa; não é foto da pizza ${pizza.name}` : `Pizza ${pizza.name}`} loading="lazy" decoding="async" onError={event => { event.currentTarget.style.display = 'none'; }} />
+      {pizza.imageIsIllustrative && <span className="photo-credit">Imagem ilustrativa</span>}
       {quantity > 0 && <span className="selected-count"><Check size={13} /> {quantity} {quantity === 1 ? 'pedaço' : 'pedaços'}</span>}
     </div>
     <div className="card-content"><div className="card-label">{pizza.category}{pizza.vegetarian && <span title="Sem carne ou peixe; contém ingredientes de origem animal"><Leaf size={13} /> Vegetariana</span>}</div>

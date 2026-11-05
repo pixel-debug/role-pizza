@@ -1,5 +1,45 @@
 export type Category = 'Especiais' | 'Clássicas' | 'Doces';
-export type Pizza = { name: string; description: string; category: Category; vegetarian: boolean; image: string };
+export type Pizza = { name: string; description: string; category: Category; vegetarian: boolean; image: string; imageIsIllustrative: boolean };
+
+const flavorPhotos: Readonly<Record<string, string>> = {
+  'Burrata com Parma': '/pizzas/burrata-com-parma.jpeg',
+  'Serrana': '/pizzas/serrana.jpeg',
+  'Pepperoni': '/pizzas/pepperoni.jpeg',
+  'Di Parma': '/pizzas/di-parma.jpeg',
+  'Caciocavallo': '/pizzas/caciocavallo.jpeg',
+  'Calábria': '/pizzas/calabria.jpeg',
+  'Zucchini': '/pizzas/zucchini.jpeg',
+  'Melanzana': '/pizzas/melanzana.jpeg',
+  'Carciofini': '/pizzas/carciofini.jpeg',
+  'Fiorentina': '/pizzas/fiorentina.jpeg',
+  'Caprese': '/pizzas/caprese.jpeg',
+  'Alecrim': '/pizzas/alecrim.jpeg',
+  'La Bufalina': '/pizzas/la-bufalina.jpeg',
+  'Peccato': '/pizzas/peccato.jpeg',
+  'Lombardia': '/pizzas/lombardia.jpeg',
+  'Castelões': '/pizzas/casteloes.jpeg',
+  'Bacio': '/pizzas/bacio.jpeg',
+  'Quatro Estações': '/pizzas/quatro-estacoes.jpeg',
+  'Carbonara': '/pizzas/carbonara.jpeg',
+  'Diavoletti': '/pizzas/diavoletti.jpeg',
+  'Brócolis': '/pizzas/brocolis.jpeg',
+  'Romana': '/pizzas/romana.jpeg',
+  'Calabresa': '/pizzas/calabresa.jpeg',
+  'Portuguesa': '/pizzas/portuguesa.jpeg',
+  'Frango com catupiry': '/pizzas/frango-com-catupiry.jpeg',
+  'Lombinho com catupiry': '/pizzas/lombinho-com-catupiry.jpeg',
+  'Peito de Peru': '/pizzas/peito-de-peru.jpeg',
+  'Atum': '/pizzas/atum.jpeg',
+  'Mussarela': '/pizzas/mussarela.jpeg',
+  'Siciliana': '/pizzas/siciliana.jpeg',
+  'Quatro Queijos': '/pizzas/quatro-queijos.jpeg',
+  'Gorgonzola': '/pizzas/gorgonzola.jpeg',
+  'Alho e óleo': '/pizzas/alho-e-oleo.jpeg',
+  'Aliche': '/pizzas/aliche.jpeg',
+  'Morango com chocolate': '/pizzas/morango-com-chocolate.jpeg',
+  'Banana com chocolate': '/pizzas/banana-com-chocolate.jpeg',
+  'Banana': '/pizzas/banana.jpeg',
+};
 
 const photos = {
   cheese: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=640&q=80',
@@ -59,4 +99,11 @@ const sweets: Entry[] = [
   ['Banana', 'Bananas, açúcar e canela caramelizados no forno e baunilha.', true, 'sweet'],
 ];
 export const menu: Pizza[] = ([['Especiais', specials], ['Clássicas', classics], ['Doces', sweets]] as [Category, Entry[]][])
-  .flatMap(([category, entries]) => entries.map(([name, description, vegetarian, photo]) => ({ name, description, category, vegetarian, image: photos[photo] })));
+  .flatMap(([category, entries]) => entries.map(([name, description, vegetarian, photo]) => ({
+    name,
+    description,
+    category,
+    vegetarian,
+    image: flavorPhotos[name] ?? photos[photo],
+    imageIsIllustrative: !flavorPhotos[name],
+  })));
