@@ -13,6 +13,7 @@ export function createApp(store: BallotStore, config: ServerConfig): Express {
   const indexFile = resolve(staticDirectory, 'index.html');
 
   app.disable('x-powered-by');
+  if (config.serverless) app.set('trust proxy', 1);
   app.use('/api', apiHeaders);
   app.use('/api', rateLimit({
     windowMs: 60_000,
@@ -25,7 +26,7 @@ export function createApp(store: BallotStore, config: ServerConfig): Express {
   app.use('/api', express.json({ limit: '4kb' }));
   app.use('/api', createApiRouter(store, config.database.client));
 
-  if (existsSync(indexFile)) {
+  if (!config.serverless && existsSync(indexFile)) {
     app.use(express.static(staticDirectory));
     app.get('/{*path}', (_request, response) => { response.sendFile(indexFile); });
   }

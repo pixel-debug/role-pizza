@@ -50,18 +50,30 @@ export async function createSqlStore(config: SqlDatabaseConfig): Promise<BallotS
       user: config.user,
       password: config.password,
       connectString: `${config.host}:${config.port}/${config.service}`,
-    } : {
+    } : 'connectionString' in config ? config.connectionString : {
       host: config.host,
       port: config.port,
       user: config.user,
       password: config.password,
       database: config.database,
     },
-    pool: { min: 0, max: 10 },
+    pool: {
+      min: 0,
+      max: config.client === 'pg' ? config.poolMax : 10,
+      idleTimeoutMillis: 10_000,
+    },
+    acquireConnectionTimeout: 15_000,
   });
 
   try {
-    await ensureSchema(database);
+    if (config.client === 'pg') {
+      await database.transaction(async transaction => {
+        await transaction.raw('SELECT pg_advisory_xact_lock(?, ?)', [734722, 1]);
+        await ensureSchema(transaction);
+      });
+    } else {
+      await ensureSchema(database);
+    }
   } catch (error) {
     await database.destroy();
     throw error;
