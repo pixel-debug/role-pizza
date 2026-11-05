@@ -4,6 +4,7 @@ const portSchema = z.coerce.number().int().min(1).max(65535);
 const environmentSchema = z.object({
   DB_CLIENT: z.enum(['sqlite', 'oracle', 'pg']).optional(),
   DATABASE_URL: z.string().url().refine(value => {
+    if (!URL.canParse(value)) return false;
     const protocol = new URL(value).protocol;
     return protocol === 'postgres:' || protocol === 'postgresql:';
   }).optional(),
@@ -42,10 +43,12 @@ export interface ServerConfig {
   database: DatabaseConfig;
 }
 
+export class ConfigurationError extends Error {}
+
 export function readConfig(environment: NodeJS.ProcessEnv = process.env): ServerConfig {
   const parsed = environmentSchema.safeParse(environment);
   if (!parsed.success) {
-    throw new Error(`Configuracao invalida: ${parsed.error.issues.map(issue => issue.path.join('.')).join(', ')}`);
+    throw new ConfigurationError(`Configuracao invalida: ${parsed.error.issues.map(issue => issue.path.join('.')).join(', ')}`);
   }
   const settings = parsed.data;
   const serverless = environment.VERCEL === '1';
@@ -53,10 +56,10 @@ export function readConfig(environment: NodeJS.ProcessEnv = process.env): Server
   let database: DatabaseConfig;
 
   if (settings.DATABASE_URL && client !== 'pg') {
-    throw new Error('DATABASE_URL exige DB_CLIENT=pg ou DB_CLIENT nao definido.');
+    throw new ConfigurationError('DATABASE_URL exige DB_CLIENT=pg ou DB_CLIENT nao definido.');
   }
   if (serverless && client !== 'pg') {
-    throw new Error('Na Vercel, configure DATABASE_URL para usar Postgres online.');
+    throw new ConfigurationError('Na Vercel, configure DATABASE_URL para usar Postgres online.');
   }
 
   if (client === 'sqlite') {
@@ -65,7 +68,7 @@ export function readConfig(environment: NodeJS.ProcessEnv = process.env): Server
     database = { client: 'pg', connectionString: settings.DATABASE_URL, poolMax: settings.DB_POOL_MAX };
   } else {
     if (!settings.DB_USER || !settings.DB_PASSWORD) {
-      throw new Error('DB_USER e DB_PASSWORD sao obrigatorios para Oracle ou Postgres.');
+      throw new ConfigurationError('DB_USER e DB_PASSWORD sao obrigatorios para Oracle ou Postgres.');
     }
     const credentials = { host: settings.DB_HOST, user: settings.DB_USER, password: settings.DB_PASSWORD };
     database = client === 'oracle'
