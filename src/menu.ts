@@ -1,3 +1,5 @@
+import { SWEET_PIZZA_NAMES } from '../shared/ballots.ts';
+
 export type Category = 'Especiais' | 'Clássicas' | 'Doces';
 export type Pizza = { name: string; description: string; category: Category; vegetarian: boolean; image: string; imageIsIllustrative: boolean };
 
@@ -92,12 +94,13 @@ const classics: Entry[] = [
   ['Alho e óleo', 'Alho refogado no azeite e parmesão com 12 meses de cura.', true, 'cheese'],
   ['Aliche', 'Filés de aliche sobre a tradicional massa de longa fermentação do Armazém e molho de tomates italianos.', false, 'meat'],
 ];
-const sweets: Entry[] = [
-  ['Morango com chocolate', 'Morangos frescos cobertos com chocolate ao leite.', true, 'sweet'],
-  ['Banana com chocolate', 'Bananas, açúcar e canela caramelizados no forno, baunilha e cobertura de chocolate ao leite.', true, 'sweet'],
-  ['Chocolate', 'Chocolate. A descrição de ingredientes não aparece nas imagens do cardápio.', true, 'sweet'],
-  ['Banana', 'Bananas, açúcar e canela caramelizados no forno e baunilha.', true, 'sweet'],
-];
+const sweetDescriptions: Readonly<Record<(typeof SWEET_PIZZA_NAMES)[number], string>> = {
+  'Morango com chocolate': 'Morangos frescos cobertos com chocolate ao leite.',
+  'Banana com chocolate': 'Bananas, açúcar e canela caramelizados no forno, baunilha e cobertura de chocolate ao leite.',
+  Chocolate: 'Chocolate. A descrição de ingredientes não aparece nas imagens do cardápio.',
+  Banana: 'Bananas, açúcar e canela caramelizados no forno e baunilha.',
+};
+const sweets: Entry[] = SWEET_PIZZA_NAMES.map(name => [name, sweetDescriptions[name], true, 'sweet']);
 export const menu: Pizza[] = ([['Especiais', specials], ['Clássicas', classics], ['Doces', sweets]] as [Category, Entry[]][])
   .flatMap(([category, entries]) => entries.map(([name, description, vegetarian, photo]) => ({
     name,
