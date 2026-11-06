@@ -39,10 +39,10 @@ export function MenuSection({ ballot, loading, disabled, onChange }: MenuSection
     <div className="section-heading"><div><span className="eyebrow">A PAUTA DE HOJE</span><h2>Qual é a sua fatia?</h2></div><span className="menu-count">{menu.length} sabores, zero decisões fáceis.</span></div>
     <div className="filter-row"><div className="tabs" role="group" aria-label="Categoria de pizza">{categories.map(item => <button key={item} className={category === item ? 'active' : ''} aria-pressed={category === item} onClick={() => setCategory(item)}>{item === 'Especiais' && <Sparkles size={14} />}{item}{item === 'Todas' && <span>{menu.length}</span>}</button>)}</div></div>
     <div className="search-row"><label className="search"><Search size={18} /><input type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Busque um sabor ou ingrediente" aria-label="Buscar pizza ou ingrediente" /></label><label className="vegetarian-filter"><input type="checkbox" checked={vegetarian} onChange={event => setVegetarian(event.target.checked)} /><Leaf size={16} /> Só vegetarianas</label></div>
-    <div className="menu-meta"><span>{visible.length} sabores na mesa</span><span>Imagens ilustrativas identificadas</span></div>
+    <div className="menu-meta"><span>{visible.length} sabores na mesa</span><span>Imagens NÃO ilustrativas identificadas</span></div>
     {loading && <div className="loading-state" role="status"><LoaderCircle className="spin" /> Esquentando o forno...</div>}
     <div className="pizza-grid">{visible.map(pizza => <PizzaCard key={pizza.name} pizza={pizza} quantity={ballot.find(item => item.name === pizza.name)?.quantity ?? 0} onChange={onChange} disabled={disabled} />)}</div>
     {!visible.length && <div className="empty-search"><Search size={30} /><h3>Esse sabor saiu para almoçar.</h3><p>Tente outro ingrediente ou tire os filtros.</p><button className="secondary-button" onClick={clearFilters}>Limpar filtros</button></div>}
-    <p className="menu-disclaimer">Ingredientes transcritos das imagens do cardápio. Sabores sem foto própria usam imagens identificadas como ilustrativas. Restrições e alergênicos devem ser confirmados com a pizzaria.</p>
+    <p className="menu-disclaimer">Ingredientes transcritos das imagens do cardápio. Sabores sem foto própria usam imagens identificadas como ilustrativas. Restrições e alergênicos devem ser levadas a sério.</p>
   </section>;
 }
