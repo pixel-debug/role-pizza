@@ -6,6 +6,7 @@ import {
   Users,
 } from 'lucide-react';
 import type { Results } from '../../shared/ballots.ts';
+import { MAX_SAVORY_PIZZAS, MAX_SWEET_PIZZAS } from '../../shared/ballots.ts';
 import type { OrderModal } from '../hooks/usePizzaOrder.ts';
 import { Dialog } from './Dialog.tsx';
 
@@ -38,7 +39,7 @@ function ResultsDialog({ results, error, onClose, onRefresh }: ResultsDialogProp
           <Users size={17} /> {results.participants} pessoas
         </span>
         <span>
-          <PizzaIcon size={17} /> {results.slices} pedaços
+          <PizzaIcon size={17} /> {results.slices} pizzas
         </span>
       </div>
       {error && (
@@ -64,7 +65,7 @@ function ResultsDialog({ results, error, onClose, onRefresh }: ResultsDialogProp
               </div>
               <span className="rank-count">
                 {pizza.quantity}
-                <small>pedaços</small>
+                <small>pizzas</small>
               </span>
             </li>
           ))}
@@ -99,25 +100,32 @@ export function OrderDialogs({
 
   return (
     <Dialog
-      title={welcome ? 'Três pedaços por pessoa' : 'Limite de pedaços atingido'}
+      title={welcome ? `${MAX_SAVORY_PIZZAS} salgadas + ${MAX_SWEET_PIZZAS} doce` : 'Limite do pedido atingido'}
       onClose={onClose}
     >
       <div className="modal-art">
         <PizzaIcon size={54} strokeWidth={1.3} />
         <span>
-          +<span>+</span>
+          +<span></span>
         </span>
         <PizzaIcon size={54} strokeWidth={1.3} />
+       <span>
+          +<span></span>
+        </span>
+        <PizzaIcon size={54} strokeWidth={1.3} />
+        <span>
+          +<span></span>
+        </span>
         <PizzaIcon size={54} strokeWidth={1.3} />
       </div>
       <span className="eyebrow">
         {welcome ? 'COMBINADO NÃO SAI CARO' : 'OPA, A AUDITORIA DA PIZZA CHEGOU'}
       </span>
-      <h3>{welcome ? 'Três pedaços.\nInfinitas opiniões.' : 'Calma, calabreso!'}</h3>
+      <h3>{welcome ? 'Salgada, salgada, salgada e uma doce. Infinitas opiniões' : 'Calma, calabreso!'}</h3>
       <p>
         {welcome
-          ? 'Aqui o limite é de 3 pedaços por pessoa. Pode misturar sabores, repetir o favorito e defender abacaxi em silêncio.'
-          : 'Sua equipe também está com fome! O limite é de 3 sabores por pessoa. Para trocar de sabor, tire um pedaço antes de adicionar outro.'}
+          ? `Aqui o limite é de ${MAX_SAVORY_PIZZAS} pizzas salgadas e ${MAX_SWEET_PIZZAS} doce. Pode misturar sabores, repetir o favorito e defender abacaxi em silêncio`
+          : `Sua equipe também está com fome! O limite é de ${MAX_SAVORY_PIZZAS} pizzas salgadas e ${MAX_SWEET_PIZZAS} doce. Para trocar, remova uma pedaço da mesma categoria antes de adicionar outro.`}
       </p>
       <div className="modal-note">
         <Users size={18} /> Pizza para todo mundo. Treta só pelo último guardanapo.
