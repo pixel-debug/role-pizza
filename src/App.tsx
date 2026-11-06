@@ -8,7 +8,7 @@ import {
   Sparkles,
   X,
 } from 'lucide-react';
-import { MAX_SLICES } from '../shared/ballots.ts';
+import { MAX_SAVORY_PIZZAS, MAX_SLICES, MAX_SWEET_PIZZAS } from '../shared/ballots.ts';
 import { MenuSection } from './components/MenuSection.tsx';
 import { OrderDialogs } from './components/OrderDialogs.tsx';
 import { OrderPanel } from './components/OrderPanel.tsx';
@@ -62,10 +62,10 @@ export default function App() {
               Bora escolher <ArrowDown size={16} />
             </a>
           </div>
-          <div className="intro-stamp" aria-label={`${MAX_SLICES} sabores por pessoa`}>
+          <div className="intro-stamp" aria-label={`${MAX_SAVORY_PIZZAS} pizzas salgadas e ${MAX_SWEET_PIZZAS} doce por pessoa`}>
             <PizzaIcon size={30} />
-            <strong>{MAX_SLICES} sabores</strong>
-            <span>e um time feliz</span>
+            <strong>{MAX_SAVORY_PIZZAS} + {MAX_SWEET_PIZZAS}</strong>
+            <span>salgadas + doce</span>
           </div>
         </section>
         <div className="content-layout">
