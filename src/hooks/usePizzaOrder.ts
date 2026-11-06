@@ -1,5 +1,5 @@
 import { useEffect, useEffectEvent, useRef, useState } from 'react';
-import { MAX_SLICES, countSlices, type Ballot, type Results } from '../../shared/ballots.ts';
+import { MAX_SAVORY_PIZZAS, MAX_SWEET_PIZZAS, countPizzas, countSlices, isSweetPizza, type Ballot, type Results } from '../../shared/ballots.ts';
 import { pizzaApi } from '../services/pizza-api.ts';
 
 export type OrderModal = 'welcome' | 'limit' | 'results' | null;
@@ -90,9 +90,11 @@ export function usePizzaOrder() {
 
   function change(name: string, delta: QuantityDelta): void {
     if (loading || submissionPending.current) return;
-    if (delta > 0 && count >= MAX_SLICES) { setModal('limit'); return; }
+    const sweet = isSweetPizza(name);
+    const categoryLimit = sweet ? MAX_SWEET_PIZZAS : MAX_SAVORY_PIZZAS;
+    if (delta > 0 && countPizzas(ballot, sweet) >= categoryLimit) { setModal('limit'); return; }
     setBallot(current => {
-      if (delta > 0 && countSlices(current) >= MAX_SLICES) return current;
+      if (delta > 0 && countPizzas(current, sweet) >= categoryLimit) return current;
       const quantity = (current.find(pizza => pizza.name === name)?.quantity ?? 0) + delta;
       return [...current.filter(pizza => pizza.name !== name), ...(quantity > 0 ? [{ name, quantity }] : [])];
     });
