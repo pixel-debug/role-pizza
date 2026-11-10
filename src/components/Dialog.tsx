@@ -5,9 +5,10 @@ interface DialogProps {
   children: ReactNode;
   title: string;
   onClose: () => void;
+  className?: string;
 }
 
-export function Dialog({ children, title, onClose }: DialogProps) {
+export function Dialog({ children, title, onClose, className }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const titleId = useId();
 
@@ -17,7 +18,7 @@ export function Dialog({ children, title, onClose }: DialogProps) {
     return () => dialog?.close();
   }, []);
 
-  return <dialog ref={ref} className="dialog" aria-labelledby={titleId} onCancel={onClose} onClick={event => {
+  return <dialog ref={ref} className={`dialog ${className ?? ''}`} aria-labelledby={titleId} onCancel={onClose} onClick={event => {
     if (event.target === event.currentTarget) onClose();
   }}>
     <button className="icon-button dialog-close" aria-label="Fechar" title="Fechar" onClick={onClose}><X size={20} /></button>
