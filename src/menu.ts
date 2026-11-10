@@ -54,45 +54,20 @@ const specials: Entry[] = [
   ['Burrata com Parma', 'Molho de tomate italiano, burrata La Bufalina servida fria, fatias finas de presunto Di Parma e pesto de manjericão.', false, 'meat'],
   ['Quatro queijos especial', 'Molho de tomates italianos, queijos da Canastra maturado e jovem, Gouda, queijo do Reino e um pouco de requeijão para dar cremosidade.', true, 'cheese'],
   ['Serrana', 'Requeijão, palmitos, cebolas e parmesão com 12 meses de cura.', true, 'cheese'],
-  ['Burrata com Tomates', 'Molho de tomates italianos, burrata servida fria, tomates-cereja e pesto de manjericão.', true, 'green'],
   ['Pepperoni', 'Mussarela, pepperoni, tomates-cereja e folhas de manjericão.', false, 'meat'],
-  ['Di Parma', 'Mussarela, fatias de tomate caqui e presunto cru italiano.', false, 'meat'],
   ['Gênova', 'Mussarela de búfala La Bufalina, pesto de manjericão (autêntica receita do Pesto Genovês) e tomates-cereja.', true, 'green'],
   ['Caciocavallo', 'Queijo Caciocavallo, tomates-cereja e salame calabrês artesanal em fatias finas.', false, 'meat'],
-  ['Stella Caramellata', 'Provolone, cebola caramelizada, calabresa artesanal e parmesão.', false, 'meat'],
   ['Calábria', 'Mussarela, linguiça calabresa artesanal, manjericão e parmesão com 12 meses de cura.', false, 'meat'],
-  ['Zucchini', 'Fatias de abobrinha refogadas no forno à lenha com azeite, mussarela e parmesão com 12 meses de cura.', true, 'green'],
-  ['Melanzana', 'Fatias de berinjela refogadas no forno à lenha com azeite, mussarela e parmesão com 12 meses de cura.', true, 'green'],
-  ['Carciofini', 'Mussarela, pedaços de coração de alcachofra e parmesão com 12 meses de cura.', true, 'green'],
-  ['Fiorentina', 'Espinafre refogado no alho e azeite, requeijão e parmesão com 12 meses de cura.', true, 'green'],
-  ['Caprese', 'Rúcula, fatias de tomate caqui cobertas com mussarela de búfala, manjericão e pesto de azeitonas pretas.', true, 'green'],
-  ['Alecrim', 'Mussarela de búfala fresca La Bufalina, alecrim e parmesão com 12 meses de cura.', true, 'cheese'],
-  ['La Bufalina', 'Mussarela de búfala fresca La Bufalina e folhas de manjericão.', true, 'cheese'],
   ['Fungui', 'Mussarela, shitake, shimeji e champignons frescos salteados no azeite, parmesão com 12 meses de cura e tomilho.', true, 'green'],
-  ['Peccato', 'Mussarela, fatias de abobrinha italiana e lascas de presunto italiano crocantes.', false, 'meat'],
-  ['Lombardia', 'Mussarela, cebolas caramelizadas no forno à lenha com chimichurri, bacon e parmesão com 12 meses de cura.', false, 'meat'],
   ['Castelões', 'Mussarela coberta com calabresa artesanal.', false, 'meat'],
   ['Bacio', 'Mussarela, provolone, pedaços de tomates e lascas de azeitonas pretas.', true, 'cheese'],
-  ['Quatro Estações', 'Mussarela, berinjela e abobrinha refogadas no forno à lenha, alho refogado no azeite e fatias de tomates assados.', true, 'green'],
-  ['Carbonara', 'Mussarela, ovos picados, bacon e parmesão.', false, 'meat'],
-  ['Diavoletti', 'Mussarela, fatias de linguiça artesanal apimentada e pimenta dedo-de-moça.', false, 'meat'],
-  ['Brócolis', 'Mussarela, brócolis refogado com azeite e alho, bacon crocante e parmesão com 12 meses de cura.', false, 'green'],
-  ['Romana', 'Mussarela, filés de aliche, parmesão com 12 meses de cura e azeitonas pretas.', false, 'cheese'],
 ];
 const classics: Entry[] = [
-  ['Calabresa', 'Calabresa artesanal fatiada, cebolas e azeitonas pretas.', false, 'meat'],
-  ['Portuguesa', 'Mussarela, presunto, ovos, cebolas e azeitonas pretas.', false, 'meat'],
   ['Frango com catupiry', 'Peito de frango desfiado e coberto com Catupiry.', false, 'cheese'],
   ['Lombinho com catupiry', 'Lombo canadense, cebolas e cobertura de Catupiry.', false, 'meat'],
   ['Peito de Peru', 'Fatias de peito de peru defumado, alho-poró e Catupiry.', false, 'cheese'],
-  ['Atum', 'Atum e mussarela sobre a tradicional massa de longa fermentação do Armazém, com molho de tomates italianos.', false, 'cheese'],
-  ['Marguerita', 'Mussarela, folhas de manjericão e parmesão com 12 meses de cura.', true, 'green'],
   ['Mussarela', 'Mussarela sobre a tradicional massa de longa fermentação do Armazém e molho de tomates italianos.', true, 'cheese'],
-  ['Siciliana', 'Mussarela, fatias de tomates e parmesão com 12 meses de cura.', true, 'cheese'],
   ['Quatro Queijos', 'Mussarela, Catupiry, gorgonzola e parmesão com 12 meses de cura.', true, 'cheese'],
-  ['Gorgonzola', 'Mussarela e gorgonzola sobre a tradicional massa de longa fermentação do Armazém e molho de tomates italianos.', true, 'cheese'],
-  ['Alho e óleo', 'Alho refogado no azeite e parmesão com 12 meses de cura.', true, 'cheese'],
-  ['Aliche', 'Filés de aliche sobre a tradicional massa de longa fermentação do Armazém e molho de tomates italianos.', false, 'meat'],
 ];
 const sweetDescriptions: Readonly<Record<(typeof SWEET_PIZZA_NAMES)[number], string>> = {
   'Morango com chocolate': 'Morangos frescos cobertos com chocolate ao leite.',
@@ -100,7 +75,8 @@ const sweetDescriptions: Readonly<Record<(typeof SWEET_PIZZA_NAMES)[number], str
   Chocolate: 'Chocolate. A descrição de ingredientes não aparece nas imagens do cardápio.',
   Banana: 'Bananas, açúcar e canela caramelizados no forno e baunilha.',
 };
-const sweets: Entry[] = SWEET_PIZZA_NAMES.map(name => [name, sweetDescriptions[name], true, 'sweet']);
+const visibleSweetPizzaNames = ['Morango com chocolate', 'Chocolate', 'Banana'] as const;
+const sweets: Entry[] = visibleSweetPizzaNames.map(name => [name, sweetDescriptions[name], true, 'sweet']);
 export const menu: Pizza[] = ([['Especiais', specials], ['Clássicas', classics], ['Doces', sweets]] as [Category, Entry[]][])
   .flatMap(([category, entries]) => entries.map(([name, description, vegetarian, photo]) => ({
     name,
