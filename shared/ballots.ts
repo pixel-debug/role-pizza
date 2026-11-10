@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const MAX_SAVORY_PIZZAS = 3;
 export const MAX_SWEET_PIZZAS = 1;
 export const MAX_SLICES = MAX_SAVORY_PIZZAS + MAX_SWEET_PIZZAS;
+export const EVENT_PARTICIPANTS = 14;
 
 export const SWEET_PIZZA_NAMES = [
   'Morango com chocolate',
